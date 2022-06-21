@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class)
+import Ui.Input
 
 
 main : Program Flags Model Msg
@@ -50,5 +51,23 @@ subscriptions _ =
 
 view : Model -> Html Msg
 view _ =
-    div [ class "p-2 font-semibold text-gray-900" ]
-        [ text "Hello world!" ]
+    div [ class "p-10 max-w-md" ]
+        [ viewSection
+            [ Ui.Input.view [ Ui.Input.placeholder "Insert text" ]
+            , Ui.Input.view [ Ui.Input.value "value" ]
+            , Ui.Input.view [ Ui.Input.label "Label" ]
+            , Ui.Input.view
+                [ Ui.Input.value "value"
+                , Ui.Input.validation (Just (Ok ()))
+                ]
+            , Ui.Input.view
+                [ Ui.Input.value "value"
+                , Ui.Input.validation (Just (Err "Error message"))
+                ]
+            ]
+        ]
+
+
+viewSection : List (Html msg) -> Html msg
+viewSection =
+    div [ class "space-y-6 max-w-md" ]

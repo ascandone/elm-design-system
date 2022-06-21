@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html",
+    "dev": "parcel example/index.html",
+    "build": "parcel build example/index.html",
     "test": "elm-test",
     "test:watch": "elm-test --watch",
     "format": "prettier --cache --write src/**/*.js"
