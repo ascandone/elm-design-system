@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class)
+import Ui.CheckBox
 import Ui.Input
 
 
@@ -21,25 +22,27 @@ type alias Flags =
 
 
 type alias Model =
-    {}
+    { checkbox : Bool
+    }
 
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
-    ( {}
+    ( { checkbox = False
+      }
     , Cmd.none
     )
 
 
 type Msg
-    = Noop
+    = Checked Bool
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Noop ->
-            ( model
+        Checked value ->
+            ( { model | checkbox = value }
             , Cmd.none
             )
 
@@ -50,7 +53,7 @@ subscriptions _ =
 
 
 view : Model -> Html Msg
-view _ =
+view model =
     div [ class "p-10 max-w-md" ]
         [ viewSection
             [ Ui.Input.view [ Ui.Input.placeholder "Insert text" ]
@@ -65,9 +68,15 @@ view _ =
                 , Ui.Input.validation (Just (Err "Error message"))
                 ]
             ]
+        , viewSection
+            [ Ui.CheckBox.view
+                [ Ui.CheckBox.onCheck Checked
+                , Ui.CheckBox.checked model.checkbox
+                ]
+            ]
         ]
 
 
 viewSection : List (Html msg) -> Html msg
 viewSection =
-    div [ class "space-y-6 max-w-md" ]
+    div [ class "space-y-6 max-w-md mb-10" ]
