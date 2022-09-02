@@ -73,6 +73,11 @@ view model =
                 [ Ui.CheckBox.onCheck Checked
                 , Ui.CheckBox.checked model.checkbox
                 ]
+            , Ui.CheckBox.view
+                [ Ui.CheckBox.onCheck Checked
+                , Ui.CheckBox.checked model.checkbox
+                , Ui.CheckBox.label "Label"
+                ]
             ]
         ]
 

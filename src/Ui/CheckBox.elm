@@ -19,12 +19,6 @@ type Attribute msg
     = Attribute (Config msg -> Config msg)
 
 
-
--- attribute : Html.Attribute msg -> Attribute msg
--- attribute attr_ =
---     Attribute <| \c -> { c | checkboxAttributes = attr_ :: c.checkboxAttributes }
-
-
 label : String -> Attribute msg
 label label_ =
     Attribute <| \c -> { c | label = Just label_ }
@@ -68,16 +62,26 @@ view attributes =
         config =
             makeConfig attributes
     in
-    Html.div []
-        [ Html.div [ class "hidden" ]
-            [ Html.Extra.concatAttributes Html.input
-                (List.filterMap identity [ Maybe.map Html.Events.onCheck config.onCheck ])
-                [ Html.Attributes.type_ "checkbox"
-                , Html.Attributes.checked config.checked
+    Html.label [ class "flex items-center" ]
+        [ Html.div []
+            [ Html.div [ class "hidden" ]
+                [ Html.Extra.concatAttributes Html.input
+                    (List.filterMap identity [ Maybe.map Html.Events.onCheck config.onCheck ])
+                    [ Html.Attributes.type_ "checkbox"
+                    , Html.Attributes.checked config.checked
+                    ]
+                    []
                 ]
-                []
+            , viewFakeCheckbox config
             ]
-        , viewFakeCheckbox config
+        , case config.label of
+            Nothing ->
+                Html.text ""
+
+            Just labelText ->
+                Html.div [ class "ml-2 leading-none text-gray-500 group-hover:text-blue-500 group-focus-within:text-blue-500" ]
+                    [ Html.text labelText
+                    ]
         ]
 
 
