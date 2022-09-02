@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class)
+import Ui.Button
 import Ui.CheckBox
 import Ui.Input
 
@@ -79,9 +80,14 @@ view model =
                 , Ui.CheckBox.label "Label"
                 ]
             ]
+        , viewSection
+            [ Ui.Button.view [ Ui.Button.size Ui.Button.small ] "Click me"
+            , Ui.Button.view [ Ui.Button.size Ui.Button.medium ] "Click me"
+            , Ui.Button.view [ Ui.Button.size Ui.Button.large ] "Click me"
+            ]
         ]
 
 
 viewSection : List (Html msg) -> Html msg
 viewSection =
-    div [ class "space-y-6 max-w-md mb-10" ]
+    div [ class "space-y-6 max-w-md mb-10 flex flex-col items-start" ]
