@@ -80,13 +80,22 @@ view model =
                 , Ui.CheckBox.label "Label"
                 ]
             ]
-        , viewSection
-            [ Ui.Button.default [ Ui.Button.size Ui.Button.small ] "Click me"
-            , Ui.Button.default [ Ui.Button.size Ui.Button.medium ] "Click me"
-            , Ui.Button.default [ Ui.Button.size Ui.Button.large ] "Click me"
-            , Ui.Button.primary [ Ui.Button.size Ui.Button.small ] "Click me"
-            , Ui.Button.primary [ Ui.Button.size Ui.Button.medium ] "Click me"
-            , Ui.Button.primary [ Ui.Button.size Ui.Button.large ] "Click me"
+        , groupSections
+            [ viewSection
+                [ Ui.Button.default [ Ui.Button.size Ui.Button.small ] "Click me"
+                , Ui.Button.default [ Ui.Button.size Ui.Button.medium ] "Click me"
+                , Ui.Button.default [ Ui.Button.size Ui.Button.large ] "Click me"
+                ]
+            , viewSection
+                [ Ui.Button.primary [ Ui.Button.size Ui.Button.small ] "Click me"
+                , Ui.Button.primary [ Ui.Button.size Ui.Button.medium ] "Click me"
+                , Ui.Button.primary [ Ui.Button.size Ui.Button.large ] "Click me"
+                ]
+            , viewSection
+                [ Ui.Button.secondary [ Ui.Button.size Ui.Button.small ] "Click me"
+                , Ui.Button.secondary [ Ui.Button.size Ui.Button.medium ] "Click me"
+                , Ui.Button.secondary [ Ui.Button.size Ui.Button.large ] "Click me"
+                ]
             ]
         ]
 
@@ -94,3 +103,8 @@ view model =
 viewSection : List (Html msg) -> Html msg
 viewSection =
     div [ class "space-y-6 max-w-md mb-10 flex flex-col items-start" ]
+
+
+groupSections : List (Html msg) -> Html msg
+groupSections =
+    div [ class "gap-x-8 w-max mb-10 flex" ]

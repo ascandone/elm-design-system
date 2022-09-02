@@ -6,6 +6,7 @@ module Ui.Button exposing
     , medium
     , onClick
     , primary
+    , secondary
     , size
     , small
     )
@@ -24,6 +25,7 @@ type Attribute msg
 type Variant
     = Default
     | Primary
+    | Secondary
 
 
 type Size
@@ -90,15 +92,19 @@ view variant attributes label =
             makeConfig attributes
     in
     Html.Extra.concatAttributes Html.button
-        [ class "shadow-sm leading-none rounded font-semibold"
-        , class "focus:outline-none focus:ring ring-blue-100 focus:border-blue-700"
+        [ class "leading-none rounded-md"
+        , class "focus:outline-none focus:ring focus:border-blue-700"
+        , class "transition transition-all duration-100 ease-in-out"
         , class <|
             case variant of
                 Default ->
-                    "border bg-gray-50 hover:bg-gray-100 text-gray-900 active:bg-gray-200"
+                    "border font-semibold shadow-sm bg-slate-50 hover:bg-slate-100 text-slate-900 active:bg-slate-200 ring-blue-100"
 
                 Primary ->
-                    "bg-black text-white hover:bg-black/90 active:bg-black/80"
+                    "shadow-lg font-semibold bg-slate-900 text-white hover:bg-slate-900/95 active:bg-slate-900 active:scale-[0.98] active:shadow-none ring-blue-300"
+
+                Secondary ->
+                    "border hover:border-slate-500 text-slate-700 ring-blue-100"
         , class <|
             case config.size of
                 Small ->
@@ -122,3 +128,8 @@ default =
 primary : List (Attribute msg) -> String -> Html msg
 primary =
     view Primary
+
+
+secondary : List (Attribute msg) -> String -> Html msg
+secondary =
+    view Secondary
