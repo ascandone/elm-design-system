@@ -6,6 +6,7 @@ module Ui.LabelText exposing
 
 import Html exposing (Html)
 import Html.Attributes exposing (class)
+import Utils
 
 
 type alias Config =
@@ -30,7 +31,10 @@ validation validation_ =
 
 makeConfig : List Attribute -> Config
 makeConfig =
-    List.foldr (\(Attribute setConfig) current -> setConfig current) defaultConfig
+    Utils.getMakeConfig
+        { unwrap = \(Attribute s) -> s
+        , defaultConfig = defaultConfig
+        }
 
 
 view : List Attribute -> String -> Html msg

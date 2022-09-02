@@ -17,6 +17,7 @@ import Html.Events
 import Html.Extra
 import Svg.Attributes
 import Ui.LabelText
+import Utils
 
 
 type Attribute msg
@@ -80,7 +81,10 @@ defaultConfig =
 
 makeConfig : List (Attribute msg) -> Config msg
 makeConfig =
-    List.foldr (\(Attribute setConfig) current -> setConfig current) defaultConfig
+    Utils.getMakeConfig
+        { unwrap = \(Attribute s) -> s
+        , defaultConfig = defaultConfig
+        }
 
 
 view : List (Attribute msg) -> Html msg

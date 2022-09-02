@@ -14,6 +14,7 @@ import Html.Extra
 import Json.Decode exposing (Decoder)
 import Svg.Attributes
 import Ui.LabelText
+import Utils
 
 
 type Attribute msg
@@ -36,8 +37,7 @@ onCheck onCheck_ =
 
 
 type alias Config msg =
-    { checkboxAttributes : List (Html.Attribute msg)
-    , label : Maybe String
+    { label : Maybe String
     , checked : Bool
     , onCheck : Maybe (Bool -> msg)
     }
@@ -45,8 +45,7 @@ type alias Config msg =
 
 defaultConfig : Config msg
 defaultConfig =
-    { checkboxAttributes = []
-    , label = Nothing
+    { label = Nothing
     , checked = False
     , onCheck = Nothing
     }
@@ -54,7 +53,10 @@ defaultConfig =
 
 makeConfig : List (Attribute msg) -> Config msg
 makeConfig =
-    List.foldr (\(Attribute setConfig) current -> setConfig current) defaultConfig
+    Utils.getMakeConfig
+        { unwrap = \(Attribute s) -> s
+        , defaultConfig = defaultConfig
+        }
 
 
 view : List (Attribute msg) -> Html msg
