@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel example/index.html",
-    "build": "parcel build example/index.html",
+    "dev:playground": "parcel example/playground/index.html",
+    "dev:form": "parcel example/form/index.html",
+    "build": "parcel build example/playground/index.html",
     "test": "elm-test",
     "test:watch": "elm-test --watch",
     "format": "prettier --cache --write src/**/*.js"

@@ -1,4 +1,4 @@
-module Main exposing (main)
+module Playground exposing (main)
 
 import Browser
 import Html exposing (..)

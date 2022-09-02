@@ -1,10 +1,15 @@
 module Ui.Input exposing
     ( Attribute
+    , Type
     , autofocus
     , label
+    , number
     , onInput
+    , password
     , placeholder
     , spellcheck
+    , text
+    , type_
     , validation
     , value
     , view
@@ -22,6 +27,30 @@ import Utils
 
 type Attribute msg
     = Attribute (Config msg -> Config msg)
+
+
+type Type
+    = Type String
+
+
+type_ : Type -> Attribute msg
+type_ x =
+    Attribute <| \c -> { c | type_ = x }
+
+
+text : Type
+text =
+    Type "text"
+
+
+password : Type
+password =
+    Type "password"
+
+
+number : Type
+number =
+    Type "number"
 
 
 attribute : Html.Attribute msg -> Attribute msg
@@ -68,6 +97,7 @@ type alias Config msg =
     { inputAttributes : List (Html.Attribute msg)
     , label : Maybe String
     , validation : Maybe (Result String ())
+    , type_ : Type
     }
 
 
@@ -76,6 +106,7 @@ defaultConfig =
     { inputAttributes = []
     , label = Nothing
     , validation = Nothing
+    , type_ = text
     }
 
 
@@ -125,6 +156,10 @@ viewErrorMessage reason =
 
 viewInput : Config msg -> Html msg
 viewInput config =
+    let
+        (Type thisType) =
+            config.type_
+    in
     Html.div
         [ class "border rounded-md focus-within:ring shadow-sm transition-all duration-100"
         , class "flex items-center"
@@ -142,6 +177,7 @@ viewInput config =
         [ Html.Extra.concatAttributes Html.input
             config.inputAttributes
             [ class "px-4 py-2 rounded-md w-full focus:outline-none"
+            , Html.Attributes.type_ thisType
             ]
             []
         , case config.validation of
