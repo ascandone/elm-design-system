@@ -81,9 +81,12 @@ view model =
                 ]
             ]
         , viewSection
-            [ Ui.Button.view [ Ui.Button.size Ui.Button.small ] "Click me"
-            , Ui.Button.view [ Ui.Button.size Ui.Button.medium ] "Click me"
-            , Ui.Button.view [ Ui.Button.size Ui.Button.large ] "Click me"
+            [ Ui.Button.default [ Ui.Button.size Ui.Button.small ] "Click me"
+            , Ui.Button.default [ Ui.Button.size Ui.Button.medium ] "Click me"
+            , Ui.Button.default [ Ui.Button.size Ui.Button.large ] "Click me"
+            , Ui.Button.primary [ Ui.Button.size Ui.Button.small ] "Click me"
+            , Ui.Button.primary [ Ui.Button.size Ui.Button.medium ] "Click me"
+            , Ui.Button.primary [ Ui.Button.size Ui.Button.large ] "Click me"
             ]
         ]
 

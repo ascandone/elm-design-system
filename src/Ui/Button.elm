@@ -1,12 +1,13 @@
 module Ui.Button exposing
     ( Attribute
     , Size
+    , default
     , large
     , medium
     , onClick
+    , primary
     , size
     , small
-    , view
     )
 
 import Html exposing (Html)
@@ -18,6 +19,11 @@ import Utils
 
 type Attribute msg
     = Attribute (Config msg -> Config msg)
+
+
+type Variant
+    = Default
+    | Primary
 
 
 type Size
@@ -77,15 +83,22 @@ makeConfig =
         }
 
 
-view : List (Attribute msg) -> String -> Html msg
-view attributes label =
+view : Variant -> List (Attribute msg) -> String -> Html msg
+view variant attributes label =
     let
         config =
             makeConfig attributes
     in
     Html.Extra.concatAttributes Html.button
-        [ class "shadow-sm border bg-gray-50 hover:bg-gray-100 text-gray-900 leading-none rounded font-semibold"
-        , class "focus:outline-none focus:ring ring-blue-100 focus:border-blue-700 active:bg-gray-200"
+        [ class "shadow-sm leading-none rounded font-semibold"
+        , class "focus:outline-none focus:ring ring-blue-100 focus:border-blue-700"
+        , class <|
+            case variant of
+                Default ->
+                    "border bg-gray-50 hover:bg-gray-100 text-gray-900 active:bg-gray-200"
+
+                Primary ->
+                    "bg-black text-white hover:bg-black/90 active:bg-black/80"
         , class <|
             case config.size of
                 Small ->
@@ -99,3 +112,13 @@ view attributes label =
         ]
         config.buttonAttributes
         [ Html.text label ]
+
+
+default : List (Attribute msg) -> String -> Html msg
+default =
+    view Default
+
+
+primary : List (Attribute msg) -> String -> Html msg
+primary =
+    view Primary
