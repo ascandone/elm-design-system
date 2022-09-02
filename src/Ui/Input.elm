@@ -121,7 +121,7 @@ viewLabelContent labelText validation_ =
         , class <|
             case validation_ of
                 Nothing ->
-                    "text-gray-500 group-hover:text-indigo-500 group-focus-within:text-indigo-500"
+                    "text-gray-500 group-hover:text-blue-500 group-focus-within:text-blue-500"
 
                 Just (Ok _) ->
                     "text-green-600/90 group-hover:text-green-600 group-focus-within:text-green-600"
@@ -140,7 +140,7 @@ viewInput config =
         , class <|
             case config.validation of
                 Nothing ->
-                    "group-hover:border-indigo-500 focus-within:border-indigo-600 ring-indigo-200"
+                    "group-hover:border-blue-500 focus-within:border-blue-600 ring-blue-200"
 
                 Just (Ok _) ->
                     "group-hover:border-green-500 focus-within:border-green-600 ring-green-200 border-green-300"
