@@ -4,6 +4,7 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class)
 import Ui.Button
+import Ui.CheckBox
 import Ui.Input
 
 
@@ -61,12 +62,12 @@ view _ =
                 [ text "Sign up" ]
             , div [ class "h-3" ] []
             , p [ class "text-gray-700" ]
-                [ text "Already registered? "
+                [ text "Already got an account? "
                 , a
                     [ class "text-cyan-600 underline cursor-pointer"
                     ]
-                    [ text "Sign in" ]
-                , text " to your account"
+                    [ text "Click here" ]
+                , text " to log in"
                 ]
             ]
         , div [ class "h-10" ] []
@@ -88,6 +89,9 @@ view _ =
                 [ Ui.Input.label "Password"
                 , Ui.Input.type_ Ui.Input.password
                 ]
+            , div [ class "h-4" ] []
+            , Ui.CheckBox.view
+                [ Ui.CheckBox.label "Agree to receive spam" ]
             , div [ class "h-8" ] []
             , Ui.Button.primary
                 [ Ui.Button.stretch True

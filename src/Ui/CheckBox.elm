@@ -82,7 +82,7 @@ view attributes =
                 Html.text ""
 
             Just labelText ->
-                Html.div [ class "ml-2" ]
+                Html.div [ class "ml-3" ]
                     [ Ui.LabelText.view [] labelText
                     ]
         ]
