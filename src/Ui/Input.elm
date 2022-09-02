@@ -16,6 +16,7 @@ import Html.Attributes exposing (class)
 import Html.Events
 import Html.Extra
 import Svg.Attributes
+import Ui.LabelText
 
 
 type Attribute msg
@@ -95,7 +96,11 @@ view attributes =
 
             Just labelText ->
                 Html.label [ class "group" ]
-                    [ viewLabelContent labelText config.validation
+                    [ Html.div [ class "ml-2 mb-2" ]
+                        [ Ui.LabelText.view
+                            [ Ui.LabelText.validation config.validation ]
+                            labelText
+                        ]
                     , viewInput config
                     ]
         , Html.div [ class "h-2" ]
@@ -112,24 +117,6 @@ view attributes =
 viewErrorMessage : String -> Html msg
 viewErrorMessage reason =
     Html.div [ class "ml-2 my-1 leading-none text-xs text-red-500 absolute" ] [ Html.text reason ]
-
-
-viewLabelContent : String -> Maybe (Result String ()) -> Html msg
-viewLabelContent labelText validation_ =
-    Html.div
-        [ class "ml-2 mb-2 leading-none"
-        , class <|
-            case validation_ of
-                Nothing ->
-                    "text-gray-500 group-hover:text-blue-500 group-focus-within:text-blue-500"
-
-                Just (Ok _) ->
-                    "text-green-600/90 group-hover:text-green-600 group-focus-within:text-green-600"
-
-                Just (Err _) ->
-                    "text-red-500/90 group-hover:text-red-500 group-focus-within:text-red-500"
-        ]
-        [ Html.text labelText ]
 
 
 viewInput : Config msg -> Html msg

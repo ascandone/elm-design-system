@@ -13,6 +13,7 @@ import Html.Events
 import Html.Extra
 import Json.Decode exposing (Decoder)
 import Svg.Attributes
+import Ui.LabelText
 
 
 type Attribute msg
@@ -79,8 +80,8 @@ view attributes =
                 Html.text ""
 
             Just labelText ->
-                Html.div [ class "ml-2 leading-none text-gray-500 group-hover:text-blue-500 group-focus-within:text-blue-500" ]
-                    [ Html.text labelText
+                Html.div [ class "ml-2" ]
+                    [ Ui.LabelText.view [] labelText
                     ]
         ]
 
