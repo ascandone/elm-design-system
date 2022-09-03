@@ -184,7 +184,7 @@ view attributes =
 
 viewErrorMessage : String -> Html msg
 viewErrorMessage reason =
-    Html.div [ class "ml-2 my-1 leading-none text-xs text-red-500 absolute" ] [ Html.text reason ]
+    Html.div [ class "ml-2 my-1 leading-none text-xs text-red-500" ] [ Html.text reason ]
 
 
 viewInput : Config msg -> Html msg
