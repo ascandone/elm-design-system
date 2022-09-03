@@ -1,4 +1,4 @@
-module Ui.Input exposing
+module Ui.Textfield exposing
     ( Attribute
     , Type
     , autofocus

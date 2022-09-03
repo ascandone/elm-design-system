@@ -5,7 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (class)
 import Ui.Button
 import Ui.CheckBox
-import Ui.Input
+import Ui.Textfield
 
 
 main : Program Flags Model Msg
@@ -113,22 +113,22 @@ view model =
                 ]
             , div [ class "h-10" ] []
             , viewCard
-                [ Ui.Input.view
-                    [ Ui.Input.label "Email"
+                [ Ui.Textfield.view
+                    [ Ui.Textfield.label "Email"
                     ]
                 , div [ class "h-4" ] []
                 , div [ class "flex gap-x-5" ]
-                    [ Ui.Input.view
-                        [ Ui.Input.label "First name"
+                    [ Ui.Textfield.view
+                        [ Ui.Textfield.label "First name"
                         ]
-                    , Ui.Input.view
-                        [ Ui.Input.label "Last name"
+                    , Ui.Textfield.view
+                        [ Ui.Textfield.label "Last name"
                         ]
                     ]
                 , div [ class "h-4" ] []
-                , Ui.Input.view
-                    [ Ui.Input.label "Password"
-                    , Ui.Input.type_ Ui.Input.password
+                , Ui.Textfield.view
+                    [ Ui.Textfield.label "Password"
+                    , Ui.Textfield.type_ Ui.Textfield.password
                     ]
                 , div [ class "h-4" ] []
                 , Ui.CheckBox.view

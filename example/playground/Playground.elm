@@ -5,7 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (class)
 import Ui.Button
 import Ui.CheckBox
-import Ui.Input
+import Ui.Textfield
 
 
 main : Program Flags Model Msg
@@ -57,16 +57,16 @@ view : Model -> Html Msg
 view model =
     div [ class "p-10 max-w-md" ]
         [ viewSection
-            [ Ui.Input.view [ Ui.Input.placeholder "Insert text" ]
-            , Ui.Input.view [ Ui.Input.value "value" ]
-            , Ui.Input.view [ Ui.Input.label "Label" ]
-            , Ui.Input.view
-                [ Ui.Input.value "value"
-                , Ui.Input.validation (Just (Ok ()))
+            [ Ui.Textfield.view [ Ui.Textfield.placeholder "Insert text" ]
+            , Ui.Textfield.view [ Ui.Textfield.value "value" ]
+            , Ui.Textfield.view [ Ui.Textfield.label "Label" ]
+            , Ui.Textfield.view
+                [ Ui.Textfield.value "value"
+                , Ui.Textfield.validation (Just (Ok ()))
                 ]
-            , Ui.Input.view
-                [ Ui.Input.value "value"
-                , Ui.Input.validation (Just (Err "Error message"))
+            , Ui.Textfield.view
+                [ Ui.Textfield.value "value"
+                , Ui.Textfield.validation (Just (Err "Error message"))
                 ]
             ]
         , viewSection
