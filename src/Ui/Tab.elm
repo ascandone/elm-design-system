@@ -5,9 +5,8 @@ module Ui.Tab exposing
     )
 
 import Html exposing (Html)
-import Html.Attributes exposing (attribute, class, classList, selected)
+import Html.Attributes exposing (class)
 import Html.Events
-import Html.Extra
 import Utils
 
 
