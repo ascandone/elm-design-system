@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (class)
 import Ui.Button
 import Ui.CheckBox
+import Ui.Tab
 import Ui.Textfield
 
 
@@ -24,12 +25,14 @@ type alias Flags =
 
 type alias Model =
     { checkbox : Bool
+    , selected : Int
     }
 
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
     ( { checkbox = False
+      , selected = 1
       }
     , Cmd.none
     )
@@ -37,6 +40,7 @@ init _ =
 
 type Msg
     = Checked Bool
+    | Selected Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -44,6 +48,11 @@ update msg model =
     case msg of
         Checked value ->
             ( { model | checkbox = value }
+            , Cmd.none
+            )
+
+        Selected n ->
+            ( { model | selected = n }
             , Cmd.none
             )
 
@@ -57,6 +66,24 @@ view : Model -> Html Msg
 view model =
     div [ class "p-10 max-w-md" ]
         [ viewSection
+            [ Ui.Tab.view
+                [ Ui.Tab.value model.selected ]
+                [ Ui.Tab.item
+                    { value = 0
+                    , label = "Feed"
+                    }
+                , Ui.Tab.item
+                    { value = 1
+                    , label = "Favorites"
+                    }
+                , Ui.Tab.item
+                    { value = 2
+                    , label = "New"
+                    }
+                ]
+            ]
+            |> Html.map Selected
+        , viewSection
             [ Ui.Textfield.view [ Ui.Textfield.placeholder "Insert text" ]
             , Ui.Textfield.view [ Ui.Textfield.value "value" ]
             , Ui.Textfield.view [ Ui.Textfield.label "Label" ]
