@@ -5,6 +5,7 @@ module Ui.Textfield exposing
     , disabled
     , email
     , label
+    , loading
     , number
     , onInput
     , password
@@ -86,6 +87,11 @@ disabled =
     attribute << Html.Attributes.disabled
 
 
+loading : Bool -> Attribute msg
+loading loading_ =
+    Attribute <| \c -> { c | loading = loading_ }
+
+
 label : String -> Attribute msg
 label label_ =
     Attribute <| \c -> { c | label = Just label_ }
@@ -111,6 +117,7 @@ type alias Config msg =
     , label : Maybe String
     , validation : Maybe (Result String ())
     , type_ : Type
+    , loading : Bool
     }
 
 
@@ -120,6 +127,7 @@ defaultConfig =
     , label = Nothing
     , validation = Nothing
     , type_ = text
+    , loading = False
     }
 
 
@@ -195,9 +203,13 @@ viewInput config =
             []
         , case config.validation of
             Nothing ->
-                Html.div [ class " w-10 h-full" ]
-                    [ Ui.Loader.view []
-                    ]
+                if config.loading then
+                    Html.div [ class " w-10 h-full" ]
+                        [ Ui.Loader.view []
+                        ]
+
+                else
+                    Html.text ""
 
             Just result ->
                 Html.span [ class "px-2" ]

@@ -193,6 +193,16 @@ view variant attributes label =
             Html.span [ class "absolute insets-0" ]
                 [ Ui.Loader.view
                     [ Ui.Loader.variant Ui.Loader.darkTheme
+                    , Ui.Loader.size <|
+                        case config.size of
+                            Small ->
+                                Ui.Loader.small
+
+                            Medium ->
+                                Ui.Loader.medium
+
+                            Large ->
+                                Ui.Loader.medium
                     ]
                 ]
 

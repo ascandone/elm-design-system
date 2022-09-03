@@ -85,8 +85,11 @@ view model =
             |> Html.map Selected
         , viewSection
             [ Ui.Textfield.view [ Ui.Textfield.placeholder "Insert text" ]
-            , Ui.Textfield.view [ Ui.Textfield.value "value" ]
             , Ui.Textfield.view [ Ui.Textfield.label "Label" ]
+            , Ui.Textfield.view
+                [ Ui.Textfield.value "value"
+                , Ui.Textfield.loading True
+                ]
             , Ui.Textfield.view
                 [ Ui.Textfield.value "value"
                 , Ui.Textfield.validation (Just (Ok ()))
