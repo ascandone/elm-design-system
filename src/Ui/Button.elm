@@ -100,7 +100,7 @@ view variant attributes label =
             makeConfig attributes
     in
     Html.Extra.concatAttributes Html.button
-        [ class "leading-none rounded-md"
+        [ class "leading-none rounded-md whitespace-nowrap"
         , class "focus:outline-none focus:ring focus:border-blue-700 min-w-10"
         , class "transition transition-all duration-100 ease-in-out"
         , classList [ ( "w-full", config.stretch ) ]
