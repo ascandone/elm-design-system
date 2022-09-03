@@ -3,6 +3,7 @@ module Playground exposing (main)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (class)
+import Ui.Alert
 import Ui.Button
 import Ui.CheckBox
 import Ui.Tab
@@ -60,11 +61,15 @@ type Msg
     = Checked Bool
     | Selected Int
     | HandlTextField Ui.Textfield.Stateful.Msg
+    | Noop
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        Noop ->
+            ( model, Cmd.none )
+
         Checked value ->
             ( { model | checkbox = value }
             , Cmd.none
@@ -90,6 +95,14 @@ view : Model -> Html Msg
 view model =
     div [ class "p-10 max-w-md" ]
         [ viewSection
+            [ Ui.Alert.default [ Ui.Alert.onClose Noop ]
+                [ Html.text "Invalid password. Maybe try again?" ]
+            , Ui.Alert.warning [ Ui.Alert.onClose Noop ]
+                [ Html.text "Invalid password. Maybe try again?" ]
+            , Ui.Alert.error [ Ui.Alert.onClose Noop ]
+                [ Html.text "Invalid password. Maybe try again?" ]
+            ]
+        , viewSection
             [ Ui.Tab.view
                 [ Ui.Tab.value model.selected ]
                 [ Ui.Tab.item
