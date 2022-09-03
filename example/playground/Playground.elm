@@ -112,16 +112,31 @@ view model =
                 [ Ui.Button.default [ Ui.Button.size Ui.Button.small ] "Click me"
                 , Ui.Button.default [ Ui.Button.size Ui.Button.medium ] "Click me"
                 , Ui.Button.default [ Ui.Button.size Ui.Button.large ] "Click me"
+
+                --
+                , Ui.Button.default [ Ui.Button.size Ui.Button.small, Ui.Button.loading True ] "Click me"
+                , Ui.Button.default [ Ui.Button.size Ui.Button.medium, Ui.Button.loading True ] "Click me"
+                , Ui.Button.default [ Ui.Button.size Ui.Button.large, Ui.Button.loading True ] "Click me"
                 ]
             , viewSection
                 [ Ui.Button.primary [ Ui.Button.size Ui.Button.small ] "Click me"
                 , Ui.Button.primary [ Ui.Button.size Ui.Button.medium ] "Click me"
                 , Ui.Button.primary [ Ui.Button.size Ui.Button.large ] "Click me"
+
+                --
+                , Ui.Button.primary [ Ui.Button.size Ui.Button.small, Ui.Button.loading True ] "Click me"
+                , Ui.Button.primary [ Ui.Button.size Ui.Button.medium, Ui.Button.loading True ] "Click me"
+                , Ui.Button.primary [ Ui.Button.size Ui.Button.large, Ui.Button.loading True ] "Click me"
                 ]
             , viewSection
                 [ Ui.Button.secondary [ Ui.Button.size Ui.Button.small ] "Click me"
                 , Ui.Button.secondary [ Ui.Button.size Ui.Button.medium ] "Click me"
                 , Ui.Button.secondary [ Ui.Button.size Ui.Button.large ] "Click me"
+
+                --
+                , Ui.Button.secondary [ Ui.Button.size Ui.Button.small, Ui.Button.loading True ] "Click me"
+                , Ui.Button.secondary [ Ui.Button.size Ui.Button.medium, Ui.Button.loading True ] "Click me"
+                , Ui.Button.secondary [ Ui.Button.size Ui.Button.large, Ui.Button.loading True ] "Click me"
                 ]
             ]
         ]

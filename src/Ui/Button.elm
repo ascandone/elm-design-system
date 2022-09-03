@@ -3,6 +3,7 @@ module Ui.Button exposing
     , Size
     , default
     , large
+    , loading
     , medium
     , onClick
     , primary
@@ -60,6 +61,11 @@ stretch stretch_ =
     Attribute <| \c -> { c | stretch = stretch_ }
 
 
+loading : Bool -> Attribute msg
+loading loading_ =
+    Attribute <| \c -> { c | loading = loading_ }
+
+
 onClick : msg -> Attribute msg
 onClick =
     attribute << Html.Events.onClick
@@ -74,6 +80,7 @@ type alias Config msg =
     { buttonAttributes : List (Html.Attribute msg)
     , size : Size
     , stretch : Bool
+    , loading : Bool
     }
 
 
@@ -82,6 +89,7 @@ defaultConfig =
     { buttonAttributes = []
     , size = medium
     , stretch = False
+    , loading = False
     }
 
 
@@ -91,6 +99,28 @@ makeConfig =
         { unwrap = \(Attribute s) -> s
         , defaultConfig = defaultConfig
         }
+
+
+spinnerIcon : Variant -> Config msg -> Html msg
+spinnerIcon variant config =
+    Html.div
+        [ class "animate-spin absolute insets-0 rounded-full"
+        , class <|
+            case config.size of
+                Small ->
+                    "border-2 h-4 w-4"
+
+                _ ->
+                    "border-4 h-6 w-6"
+        , class <|
+            case variant of
+                Primary ->
+                    "border-slate-500 border-t-white"
+
+                _ ->
+                    "border-slate-400 border-t-slate-900"
+        ]
+        []
 
 
 view : Variant -> List (Attribute msg) -> String -> Html msg
@@ -103,7 +133,10 @@ view variant attributes label =
         [ class "leading-none rounded-md whitespace-nowrap"
         , class "focus:outline-none focus:ring focus:border-blue-700 min-w-10"
         , class "transition transition-all duration-100 ease-in-out"
+        , class "flex justify-center items-center"
+        , class "disabled:active:scale-100 disabled:shadow-none disabled:opacity-95"
         , classList [ ( "w-full", config.stretch ) ]
+        , Html.Attributes.disabled config.loading
         , class <|
             case variant of
                 Default ->
@@ -126,7 +159,14 @@ view variant attributes label =
                     "px-7 py-3"
         ]
         config.buttonAttributes
-        [ Html.text label ]
+        [ if config.loading then
+            spinnerIcon variant config
+
+          else
+            Html.text ""
+        , Html.span [ classList [ ( "invisible", config.loading ) ] ]
+            [ Html.text label ]
+        ]
 
 
 default : List (Attribute msg) -> String -> Html msg
