@@ -95,6 +95,10 @@ view model =
                 [ Ui.Textfield.value "value"
                 , Ui.Textfield.validation (Just (Err "Error message"))
                 ]
+            , Ui.Textfield.view
+                [ Ui.Textfield.value "disabled textfield"
+                , Ui.Textfield.disabled True
+                ]
             ]
         , viewSection
             [ Ui.CheckBox.view

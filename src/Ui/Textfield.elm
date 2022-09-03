@@ -2,6 +2,7 @@ module Ui.Textfield exposing
     ( Attribute
     , Type
     , autofocus
+    , disabled
     , label
     , number
     , onInput
@@ -71,6 +72,11 @@ spellcheck =
 autofocus : Bool -> Attribute msg
 autofocus =
     attribute << Html.Attributes.autofocus
+
+
+disabled : Bool -> Attribute msg
+disabled =
+    attribute << Html.Attributes.disabled
 
 
 label : String -> Attribute msg
@@ -176,7 +182,7 @@ viewInput config =
         ]
         [ Html.Extra.concatAttributes Html.input
             config.inputAttributes
-            [ class "px-4 py-2 rounded-md w-full focus:outline-none"
+            [ class "px-4 py-2 rounded-md w-full focus:outline-none disabled:opacity-80"
             , Html.Attributes.type_ thisType
             ]
             []
