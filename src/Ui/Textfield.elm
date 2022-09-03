@@ -24,6 +24,7 @@ import Html.Events
 import Html.Extra
 import Svg.Attributes
 import Ui.LabelText
+import Ui.Loader
 import Utils
 
 
@@ -194,7 +195,9 @@ viewInput config =
             []
         , case config.validation of
             Nothing ->
-                Html.text ""
+                Html.div [ class " w-10 h-full" ]
+                    [ Ui.Loader.view []
+                    ]
 
             Just result ->
                 Html.span [ class "px-2" ]

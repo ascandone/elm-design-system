@@ -21,6 +21,7 @@ import Html exposing (Html)
 import Html.Attributes exposing (class, classList)
 import Html.Events
 import Html.Extra
+import Ui.Loader
 import Utils
 
 
@@ -189,7 +190,11 @@ view variant attributes label =
         ]
         config.buttonAttributes
         [ if config.loading then
-            spinnerIcon variant config
+            Html.span [ class "absolute insets-0" ]
+                [ Ui.Loader.view
+                    [ Ui.Loader.variant Ui.Loader.darkTheme
+                    ]
+                ]
 
           else
             Html.text ""
