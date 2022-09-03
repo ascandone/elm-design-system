@@ -7,6 +7,8 @@ module Ui.Textfield exposing
     , label
     , loading
     , number
+    , onBlur
+    , onFocus
     , onInput
     , password
     , placeholder
@@ -112,6 +114,16 @@ onInput =
     attribute << Html.Events.onInput
 
 
+onBlur : msg -> Attribute msg
+onBlur =
+    attribute << Html.Events.onBlur
+
+
+onFocus : msg -> Attribute msg
+onFocus =
+    attribute << Html.Events.onFocus
+
+
 type alias Config msg =
     { inputAttributes : List (Html.Attribute msg)
     , label : Maybe String
@@ -145,7 +157,7 @@ view attributes =
         config =
             makeConfig attributes
     in
-    Html.div []
+    Html.div [ class "w-full max-w-sm" ]
         [ case config.label of
             Nothing ->
                 viewInput config

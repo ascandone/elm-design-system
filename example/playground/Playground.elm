@@ -7,6 +7,7 @@ import Ui.Button
 import Ui.CheckBox
 import Ui.Tab
 import Ui.Textfield
+import Ui.Textfield.Stateful
 
 
 main : Program Flags Model Msg
@@ -26,13 +27,30 @@ type alias Flags =
 type alias Model =
     { checkbox : Bool
     , selected : Int
+    , textfield : Ui.Textfield.Stateful.Model Int
     }
+
+
+validateInt : String -> Result String Int
+validateInt s =
+    case String.toInt s of
+        Nothing ->
+            Err "Expected a int"
+
+        Just n ->
+            if n >= 100 then
+                Ok n
+
+            else
+                Err "Expected at least 100"
 
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
     ( { checkbox = False
       , selected = 1
+      , textfield =
+            Ui.Textfield.Stateful.init validateInt
       }
     , Cmd.none
     )
@@ -41,6 +59,7 @@ init _ =
 type Msg
     = Checked Bool
     | Selected Int
+    | HandlTextField Ui.Textfield.Stateful.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -53,6 +72,11 @@ update msg model =
 
         Selected n ->
             ( { model | selected = n }
+            , Cmd.none
+            )
+
+        HandlTextField subMsg ->
+            ( { model | textfield = Ui.Textfield.Stateful.update subMsg model.textfield }
             , Cmd.none
             )
 
@@ -102,6 +126,12 @@ view model =
                 [ Ui.Textfield.value "disabled textfield"
                 , Ui.Textfield.disabled True
                 ]
+            , Ui.Textfield.Stateful.view model.textfield
+                [ Ui.Textfield.label "Stateful example"
+                , Ui.Textfield.type_ Ui.Textfield.number
+                , Ui.Textfield.placeholder "Number >= 100"
+                ]
+                |> Html.map HandlTextField
             ]
         , viewSection
             [ Ui.CheckBox.view
@@ -151,7 +181,7 @@ view model =
 
 viewSection : List (Html msg) -> Html msg
 viewSection =
-    div [ class "space-y-6 max-w-md mb-10 flex flex-col items-start" ]
+    div [ class "space-y-6 _max-w-md mb-10 flex flex-col items-start" ]
 
 
 groupSections : List (Html msg) -> Html msg
