@@ -127,28 +127,6 @@ makeConfig =
         }
 
 
-spinnerIcon : Variant -> Config msg -> Html msg
-spinnerIcon variant config =
-    Html.div
-        [ class "animate-spin absolute insets-0 rounded-full"
-        , class <|
-            case config.size of
-                Small ->
-                    "border-2 h-4 w-4"
-
-                _ ->
-                    "border-4 h-6 w-6"
-        , class <|
-            case variant of
-                Primary ->
-                    "border-slate-500 border-t-white"
-
-                _ ->
-                    "border-slate-400 border-t-slate-900"
-        ]
-        []
-
-
 view : Variant -> List (Attribute msg) -> String -> Html msg
 view variant attributes label =
     let
