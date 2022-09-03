@@ -58,13 +58,13 @@ viewItem currentValue (Item value_ label) =
             currentValue == Just value_
     in
     Html.button
-        [ class "group relative px-4"
+        [ class "group relative px-4 font-semibold"
         , class <|
             if isSelected then
-                "text-gray-900 font-semibold "
+                "text-gray-900"
 
             else
-                "text-gray-500 font-regular"
+                "text-gray-500"
         , Html.Events.onClick value_
         ]
         [ Html.text label
