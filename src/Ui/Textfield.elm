@@ -3,6 +3,7 @@ module Ui.Textfield exposing
     , Type
     , autofocus
     , disabled
+    , email
     , label
     , number
     , onInput
@@ -52,6 +53,11 @@ password =
 number : Type
 number =
     Type "number"
+
+
+email : Type
+email =
+    Type "email"
 
 
 attribute : Html.Attribute msg -> Attribute msg

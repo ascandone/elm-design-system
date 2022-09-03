@@ -1,6 +1,8 @@
 module Ui.Button exposing
     ( Attribute
     , Size
+    , Type
+    , button
     , default
     , large
     , loading
@@ -11,6 +13,8 @@ module Ui.Button exposing
     , size
     , small
     , stretch
+    , submit
+    , type_
     )
 
 import Html exposing (Html)
@@ -56,6 +60,25 @@ size size_ =
     Attribute <| \c -> { c | size = size_ }
 
 
+type Type
+    = Type String
+
+
+type_ : Type -> Attribute msg
+type_ x =
+    Attribute <| \c -> { c | type_ = x }
+
+
+button : Type
+button =
+    Type "button"
+
+
+submit : Type
+submit =
+    Type "submit"
+
+
 stretch : Bool -> Attribute msg
 stretch stretch_ =
     Attribute <| \c -> { c | stretch = stretch_ }
@@ -81,6 +104,7 @@ type alias Config msg =
     , size : Size
     , stretch : Bool
     , loading : Bool
+    , type_ : Type
     }
 
 
@@ -90,6 +114,7 @@ defaultConfig =
     , size = medium
     , stretch = False
     , loading = False
+    , type_ = button
     }
 
 
@@ -128,6 +153,9 @@ view variant attributes label =
     let
         config =
             makeConfig attributes
+
+        (Type btnType) =
+            config.type_
     in
     Html.Extra.concatAttributes Html.button
         [ class "leading-none rounded-md whitespace-nowrap"
@@ -137,6 +165,7 @@ view variant attributes label =
         , class "disabled:active:scale-100 disabled:shadow-none disabled:opacity-95"
         , classList [ ( "w-full", config.stretch ) ]
         , Html.Attributes.disabled config.loading
+        , Html.Attributes.type_ btnType
         , class <|
             case variant of
                 Default ->
