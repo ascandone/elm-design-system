@@ -1,15 +1,23 @@
 module Ui.Textfield.Stateful exposing
     ( Model
     , Msg
+    , SubmitStatus(..)
     , getValue
     , init
     , update
     , view
+    , viewAsForm
     )
 
 import Html exposing (Html)
 import Html.Extra
 import Ui.Textfield
+
+
+type SubmitStatus
+    = DidNotSubmit
+    | SubmitLoading
+    | SubmitError
 
 
 type Model parsed
@@ -73,26 +81,31 @@ update msg (Model model) =
                 }
 
 
-showedValidation : Model parsed -> Maybe (Result String ())
-showedValidation (Model model) =
+showedValidation : SubmitStatus -> Model parsed -> Maybe (Result String ())
+showedValidation submitStatus (Model model) =
     case model.validation model.value of
         Ok _ ->
             Nothing
 
         Err err ->
-            if model.showValidation then
+            if model.showValidation || submitStatus == SubmitError then
                 Just (Err err)
 
             else
                 Nothing
 
 
-view : Model parsed -> List (Ui.Textfield.Attribute Msg) -> Html Msg
-view ((Model _) as model) attributes =
+viewAsForm : SubmitStatus -> Model parsed -> List (Ui.Textfield.Attribute Msg) -> Html Msg
+viewAsForm submitStatus ((Model _) as model) attributes =
     Html.Extra.concatAttributes Ui.Textfield.view
         attributes
         [ Ui.Textfield.onInput Input
-        , Ui.Textfield.validation (showedValidation model)
+        , Ui.Textfield.validation (showedValidation submitStatus model)
         , Ui.Textfield.onBlur Blurred
         , Ui.Textfield.onFocus Focused
         ]
+
+
+view : Model parsed -> List (Ui.Textfield.Attribute Msg) -> Html Msg
+view =
+    viewAsForm DidNotSubmit

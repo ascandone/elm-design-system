@@ -4,6 +4,7 @@ module Ui.Button exposing
     , Type
     , button
     , default
+    , disabled
     , large
     , loading
     , medium
@@ -88,6 +89,11 @@ stretch stretch_ =
 loading : Bool -> Attribute msg
 loading loading_ =
     Attribute <| \c -> { c | loading = loading_ }
+
+
+disabled : Bool -> Attribute msg
+disabled =
+    attribute << Html.Attributes.disabled
 
 
 onClick : msg -> Attribute msg
