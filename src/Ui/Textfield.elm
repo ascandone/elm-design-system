@@ -204,6 +204,29 @@ viewErrorMessage reason =
     Html.div [ class "ml-2 my-1 leading-none text-xs text-red-500" ] [ Html.text reason ]
 
 
+viewIcon : Config msg -> Html msg
+viewIcon config =
+    case config.validation of
+        Nothing ->
+            if config.loading then
+                Html.div [ class " w-10 h-full" ]
+                    [ Ui.Loader.view []
+                    ]
+
+            else
+                Html.text ""
+
+        Just result ->
+            Html.span [ class "px-2" ]
+                [ case result of
+                    Ok _ ->
+                        viewCheckIcon
+
+                    Err _ ->
+                        viewErrorIcon
+                ]
+
+
 viewInput : Config msg -> Html msg
 viewInput config =
     let
@@ -211,7 +234,7 @@ viewInput config =
             config.type_
     in
     Html.div
-        [ class "border rounded-md focus-within:ring shadow-sm transition-all duration-100"
+        [ class "relative border rounded-md focus-within:ring shadow-sm transition-all duration-100"
         , class "flex items-center"
         , class <|
             case config.validation of
@@ -230,25 +253,7 @@ viewInput config =
             , Html.Attributes.type_ thisType
             ]
             []
-        , case config.validation of
-            Nothing ->
-                if config.loading then
-                    Html.div [ class " w-10 h-full" ]
-                        [ Ui.Loader.view []
-                        ]
-
-                else
-                    Html.text ""
-
-            Just result ->
-                Html.span [ class "px-2" ]
-                    [ case result of
-                        Ok _ ->
-                            viewCheckIcon
-
-                        Err _ ->
-                            viewErrorIcon
-                    ]
+        , viewIcon config
         ]
 
 
