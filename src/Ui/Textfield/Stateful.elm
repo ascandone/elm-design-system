@@ -96,13 +96,14 @@ showedValidation submitStatus (Model model) =
 
 
 viewAsForm : SubmitStatus -> Model parsed -> List (Ui.Textfield.Attribute Msg) -> Html Msg
-viewAsForm submitStatus ((Model _) as model) attributes =
+viewAsForm submitStatus ((Model modelData) as model) attributes =
     Html.Extra.concatAttributes Ui.Textfield.view
         attributes
         [ Ui.Textfield.onInput Input
         , Ui.Textfield.validation (showedValidation submitStatus model)
         , Ui.Textfield.onBlur Blurred
         , Ui.Textfield.onFocus Focused
+        , Ui.Textfield.value modelData.value
         ]
 
 
