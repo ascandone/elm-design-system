@@ -92,6 +92,7 @@ closeIcon onClick =
     Html.button
         [ Html.Events.onClick onClick
         , class "hover:bg-white/40 hover:shadow-sm p-1 -m-1 rounded-md block"
+        , Html.Attributes.type_ "button"
         ]
         [ Heroicons.Solid.x
             [ Svg.Attributes.class "h-5 w-5 "
