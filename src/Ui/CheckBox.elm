@@ -122,13 +122,13 @@ viewFakeCheckbox config =
             ]
         )
         [ class "h-5 w-5 rounded-md border shadow-sm cursor-pointer"
-        , class "hover:border-blue-300 focus:outline-none focus:border-blue-300 focus:ring ring-blue-100"
-        , classList [ ( "bg-indigo-600 border-indigo-700", config.checked ) ]
+        , class "hover:border-slate-300 focus:outline-none focus:border-blue-300 focus:ring ring-blue-100"
+        , classList [ ( "bg-slate-800 _border-slate-700", config.checked ) ]
         , Html.Attributes.tabindex 0
         ]
         [ if config.checked then
             Icons.check
-                [ Svg.Attributes.class "text-indigo-100"
+                [ Svg.Attributes.class "text-slate-100"
                 ]
 
           else

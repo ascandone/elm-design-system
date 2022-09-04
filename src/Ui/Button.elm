@@ -154,7 +154,7 @@ view variant attributes label =
         , class <|
             case variant of
                 Default ->
-                    "border font-semibold shadow-sm bg-slate-50 hover:bg-slate-100 text-slate-900 active:bg-slate-200 ring-blue-100"
+                    "border font-semibold shadow-sm hover:bg-slate-100 text-slate-900 active:bg-slate-200 ring-blue-100"
 
                 Primary ->
                     "shadow-lg font-semibold tracking-wider bg-slate-900 text-white/90 hover:bg-slate-900/95 active:bg-slate-900 active:scale-[0.99] active:shadow-none ring-blue-300"
