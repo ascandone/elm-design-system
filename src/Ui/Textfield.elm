@@ -2,6 +2,7 @@ module Ui.Textfield exposing
     ( Attribute
     , Type
     , autofocus
+    , customDescription
     , disabled
     , email
     , label
@@ -69,6 +70,11 @@ attribute attr_ =
     Attribute <| \c -> { c | inputAttributes = attr_ :: c.inputAttributes }
 
 
+customDescription : List (Html msg) -> Attribute msg
+customDescription html =
+    Attribute <| \c -> { c | customDescription = Just html }
+
+
 placeholder : String -> Attribute msg
 placeholder =
     attribute << Html.Attributes.placeholder
@@ -126,6 +132,7 @@ onFocus =
 
 type alias Config msg =
     { inputAttributes : List (Html.Attribute msg)
+    , customDescription : Maybe (List (Html msg))
     , label : Maybe String
     , validation : Maybe (Result String ())
     , type_ : Type
@@ -140,6 +147,7 @@ defaultConfig =
     , validation = Nothing
     , type_ = text
     , loading = False
+    , customDescription = Nothing
     }
 
 
@@ -164,10 +172,19 @@ view attributes =
 
             Just labelText ->
                 Html.label [ class "group" ]
-                    [ Html.div [ class "ml-2 mb-2" ]
+                    [ Html.div [ class "ml-1.5 mb-2" ]
                         [ Ui.LabelText.view
                             [ Ui.LabelText.validation config.validation ]
                             labelText
+                        , case config.customDescription of
+                            Nothing ->
+                                Html.text ""
+
+                            Just descr ->
+                                Html.div
+                                    [ class "text-sm text-gray-500 mt-1 leading-snug"
+                                    ]
+                                    descr
                         ]
                     , viewInput config
                     ]

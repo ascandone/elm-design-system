@@ -48,7 +48,7 @@ view attributes labelText =
         , class <|
             case config.validation of
                 Nothing ->
-                    "text-gray-500 group-hover:text-blue-500 group-focus-within:text-blue-500"
+                    "text-gray-600 group-hover:text-blue-500 group-focus-within:text-blue-500"
 
                 Just (Ok _) ->
                     "text-green-600/90 group-hover:text-green-600 group-focus-within:text-green-600"
