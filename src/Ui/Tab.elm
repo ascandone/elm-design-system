@@ -69,7 +69,7 @@ viewItem currentValue (Item value_ label) =
         ]
         [ Html.div [ class "my-1.5" ] [ Html.text label ]
         , Html.div
-            [ class "absolute left-1 right-1 -translate-y-0.5 h-1 rounded-sm"
+            [ class "absolute left-1 right-1 -translate-y-0.5 h-[2px] rounded-sm"
             , class "transition transition-color duration-100 ease-in-out"
             , class <|
                 if isSelected then
