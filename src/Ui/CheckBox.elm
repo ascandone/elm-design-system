@@ -3,9 +3,11 @@ module Ui.CheckBox exposing
     , checked
     , label
     , onCheck
+    , requiredOnSubmit
     , view
     )
 
+import Form.SubmitStatus exposing (SubmitStatus)
 import Heroicons.Solid as Icons
 import Html exposing (Html)
 import Html.Attributes exposing (class, classList)
@@ -36,10 +38,16 @@ onCheck onCheck_ =
     Attribute <| \c -> { c | onCheck = Just onCheck_ }
 
 
+requiredOnSubmit : SubmitStatus -> Attribute msg
+requiredOnSubmit submitStatus =
+    Attribute <| \c -> { c | submitStatus = submitStatus }
+
+
 type alias Config msg =
     { label : Maybe String
     , checked : Bool
     , onCheck : Maybe (Bool -> msg)
+    , submitStatus : SubmitStatus
     }
 
 
@@ -48,6 +56,7 @@ defaultConfig =
     { label = Nothing
     , checked = False
     , onCheck = Nothing
+    , submitStatus = Form.SubmitStatus.DidNotSubmit
     }
 
 
@@ -83,7 +92,16 @@ view attributes =
 
             Just labelText ->
                 Html.div [ class "ml-3" ]
-                    [ Ui.LabelText.view [] labelText
+                    [ Ui.LabelText.view
+                        [ Ui.LabelText.validation <|
+                            case ( config.checked, config.submitStatus ) of
+                                ( False, Form.SubmitStatus.SubmitError ) ->
+                                    Just (Err "")
+
+                                _ ->
+                                    Nothing
+                        ]
+                        labelText
                     ]
         ]
 

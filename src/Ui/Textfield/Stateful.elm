@@ -1,7 +1,6 @@
 module Ui.Textfield.Stateful exposing
     ( Model
     , Msg
-    , SubmitStatus(..)
     , getValue
     , init
     , update
@@ -9,15 +8,10 @@ module Ui.Textfield.Stateful exposing
     , viewAsForm
     )
 
+import Form.SubmitStatus exposing (SubmitStatus(..))
 import Html exposing (Html)
 import Html.Extra
 import Ui.Textfield
-
-
-type SubmitStatus
-    = DidNotSubmit
-    | SubmitLoading
-    | SubmitError
 
 
 type Model parsed
@@ -39,9 +33,10 @@ init validation =
         }
 
 
-getValue : Model parsed -> Result String parsed
+getValue : Model parsed -> Maybe parsed
 getValue (Model model) =
     model.validation model.value
+        |> Result.toMaybe
 
 
 type Msg
