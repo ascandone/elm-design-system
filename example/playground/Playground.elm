@@ -6,6 +6,7 @@ import Html.Attributes exposing (class)
 import Ui.Alert
 import Ui.Button
 import Ui.CheckBox
+import Ui.Select
 import Ui.Tab
 import Ui.Textfield
 import Ui.Textfield.Stateful
@@ -29,6 +30,7 @@ type alias Model =
     { checkbox : Bool
     , selected : Int
     , textfield : Ui.Textfield.Stateful.Model Int
+    , select : Maybe String
     }
 
 
@@ -52,6 +54,7 @@ init _ =
       , selected = 1
       , textfield =
             Ui.Textfield.Stateful.init validateInt
+      , select = Nothing
       }
     , Cmd.none
     )
@@ -61,6 +64,7 @@ type Msg
     = Checked Bool
     | Selected Int
     | HandlTextField Ui.Textfield.Stateful.Msg
+    | SelectInput String
     | Noop
 
 
@@ -77,6 +81,11 @@ update msg model =
 
         Selected n ->
             ( { model | selected = n }
+            , Cmd.none
+            )
+
+        SelectInput x ->
+            ( { model | select = Just x }
             , Cmd.none
             )
 
@@ -120,6 +129,17 @@ view model =
                 ]
             ]
             |> Html.map Selected
+        , viewSection
+            [ Ui.Select.view
+                [ Ui.Select.placeholer "Select job"
+                , Ui.Select.onChange SelectInput
+                , Ui.Select.value model.select
+                ]
+                [ Ui.Select.optionValue "Developer"
+                , Ui.Select.optionValue "Manager"
+                , Ui.Select.optionValue "Designer"
+                ]
+            ]
         , viewSection
             [ Ui.Textfield.view [ Ui.Textfield.placeholder "Insert text" ]
             , Ui.Textfield.view [ Ui.Textfield.label "Label" ]

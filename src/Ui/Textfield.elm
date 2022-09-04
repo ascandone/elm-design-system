@@ -27,6 +27,7 @@ import Html.Attributes exposing (class)
 import Html.Events
 import Html.Extra
 import Svg.Attributes
+import Ui.Internal
 import Ui.LabelText
 import Ui.Loader
 import Utils
@@ -201,7 +202,8 @@ view attributes =
 
 viewErrorMessage : String -> Html msg
 viewErrorMessage reason =
-    Html.div [ class "ml-2 my-1 leading-none text-xs text-red-500" ] [ Html.text reason ]
+    Html.div [ class "ml-2 my-1 leading-none text-xs text-red-500" ]
+        [ Html.text reason ]
 
 
 viewIcon : Config msg -> Html msg
@@ -234,22 +236,13 @@ viewInput config =
             config.type_
     in
     Html.div
-        [ class "relative border rounded-md focus-within:ring shadow-sm transition-all duration-100"
+        [ Ui.Internal.formFieldContainerClass config.validation
         , class "flex items-center"
-        , class <|
-            case config.validation of
-                Nothing ->
-                    "group-hover:border-blue-500 focus-within:border-blue-600 ring-blue-200"
-
-                Just (Ok _) ->
-                    "group-hover:border-green-500 focus-within:border-green-600 ring-green-200 border-green-300"
-
-                Just (Err _) ->
-                    "group-hover:border-red-500 focus-within:border-red-600 ring-red-200 border-red-200"
         ]
         [ Html.Extra.concatAttributes Html.input
             config.inputAttributes
-            [ class "px-4 py-2 rounded-md w-full focus:outline-none disabled:opacity-80"
+            [ class "px-4 py-2"
+            , Ui.Internal.formFieldElementClass
             , Html.Attributes.type_ thisType
             ]
             []
